@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maritime Legal QA System</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app">
+        <!-- 左侧栏 - 会话历史 -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Maritime Legal QA</span>
+                </div>
+                <button class="new-chat-btn" id="newChatBtn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    新建对话
+                </button>
+            </div>
+            <div class="sidebar-content">
+                <div class="history-list" id="historyList">
+                    <!-- 动态生成 -->
+                </div>
+            </div>
+            <div class="sidebar-footer">
+                <div class="system-status">
+                    <span class="status-dot online"></span>
+                    <span>系统就绪</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="main">
+            <!-- 顶部 Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="menu-btn" id="menuBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="12" x2="21" y2="12"></line>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <line x1="3" y1="18" x2="21" y2="18"></line>
+                        </svg>
+                    </button>
+                    <div class="header-title">
+                        <h1>Maritime Legal QA System</h1>
+                        <span class="subtitle">RAG-powered maritime law assistant</span>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <span class="badge">v1.0</span>
+                </div>
+            </header>
+
+            <!-- 聊天区域 -->
+            <div class="chat-container" id="chatContainer">
+                <!-- 欢迎页面 -->
+                <div class="welcome" id="welcome">
+                    <div class="welcome-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#1677ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 17L12 22L22 17" stroke="#1677ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="#1677ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <h2>Maritime Legal QA System</h2>
+                    <p class="welcome-desc">基于 RAG 技术的船舶海事法律智能问答系统</p>
+                    <div class="example-grid">
+                        <button class="example-card" onclick="askExample(this)" data-question="海商法中承运人的责任期间是什么？">
+                            <span class="example-icon">📋</span>
+                            <span class="example-text">海商法中承运人的责任期间是什么？</span>
+                        </button>
+                        <button class="example-card" onclick="askExample(this)" data-question="海上交通安全法对船舶航行有哪些规定？">
+                            <span class="example-icon">🚢</span>
+                            <span class="example-text">海上交通安全法对船舶航行有哪些规定？</span>
+                        </button>
+                        <button class="example-card" onclick="askExample(this)" data-question="承运人对货物灭失或损坏的赔偿责任限额是多少？">
+                            <span class="example-icon">⚖️</span>
+                            <span class="example-text">承运人对货物灭失或损坏的赔偿责任限额是多少？</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 消息列表 -->
+                <div class="messages" id="messages">
+                    <!-- 动态生成 -->
+                </div>
+            </div>
+
+            <!-- 输入区域 -->
+            <div class="input-container">
+                <div class="input-wrapper">
+                    <textarea
+                        class="input-field"
+                        id="inputField"
+                        placeholder="请输入您的法律问题..."
+                        rows="1"
+                    ></textarea>
+                    <button class="send-btn" id="sendBtn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+                <div class="input-hint">
+                    按 <kbd>Enter</kbd> 发送，<kbd>Shift</kbd> + <kbd>Enter</kbd> 换行
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
